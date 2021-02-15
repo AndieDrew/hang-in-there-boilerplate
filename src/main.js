@@ -124,11 +124,19 @@ var currentPoster;
 
 // event listeners go here 👇
 window.addEventListener("load", makeNewPoster());
-randomButton.addEventListener("click", newPoster);
-createPoster.addEventListener("click", switchToForm);
-viewSaved.addEventListener("click", switchToSaved);
-takeMeBack.addEventListener("click", switchToMain);
-backToMain.addEventListener("click", switchToMain);
+randomButton.addEventListener("click", makeNewPoster);
+createPoster.addEventListener("click", function() {
+  switchToForm("hidden");
+});
+viewSaved.addEventListener("click", function() {
+  switchToSaved("hidden");
+});
+takeMeBack.addEventListener("click", function() {
+  switchToMain("hidden");
+});
+backToMain.addEventListener("click", function() {
+  switchToMain("hidden");
+});
 showPoster.addEventListener("click", makeUserPoster);
 savePoster.addEventListener("click", saveMainPoster);
 
@@ -147,20 +155,20 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function switchToForm() {
-  posterForm.classList.remove("hidden");
-  mainPage.classList.add("hidden");
+function switchToForm(hide) {
+  posterForm.classList.remove(hide);
+  mainPage.classList.add(hide);
 }
 
-function switchToSaved() {
-  savedPosterPage.classList.remove("hidden");
-  mainPage.classList.add("hidden");
+function switchToSaved(hide) {
+  savedPosterPage.classList.remove(hide);
+  mainPage.classList.add(hide);
 }
 
-function switchToMain() {
-  posterForm.classList.add("hidden");
-  savedPosterPage.classList.add("hidden");
-  mainPage.classList.remove("hidden");
+function switchToMain(hide) {
+  posterForm.classList.add(hide);
+  savedPosterPage.classList.add(hide);
+  mainPage.classList.remove(hide);
 }
 
 function makeUserPoster() {
@@ -169,7 +177,7 @@ function makeUserPoster() {
   images.push(currentPoster.imageURL);
   titles.push(currentPoster.title);
   quotes.push(currentPoster.quote);
-  switchToMain();
+  switchToMain("hidden");
   mainImg.src = currentPoster.imageURL;
   mainTitle.innerText = currentPoster.title;
   mainQuote.innerText = currentPoster.quote;
