@@ -126,10 +126,10 @@ var currentPoster;
 window.addEventListener("load", makeNewPoster());
 randomButton.addEventListener("click", makeNewPoster);
 createPoster.addEventListener("click", function() {
-  switchToForm("hidden");
+  switchFromMain(posterForm, "hidden");
 });
 viewSaved.addEventListener("click", function() {
-  switchToSaved("hidden");
+  switchFromMain(savedPosterPage, "hidden");
 });
 takeMeBack.addEventListener("click", function() {
   switchToMain("hidden");
@@ -155,14 +155,9 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function switchToForm(hide) {
-  posterForm.classList.remove(hide);
-  mainPage.classList.add(hide);
-}
-
-function switchToSaved(hide) {
-  savedPosterPage.classList.remove(hide);
-  mainPage.classList.add(hide);
+function switchFromMain(page, action) {
+  page.classList.remove(action);
+  mainPage.classList.add(action);
 }
 
 function switchToMain(hide) {
