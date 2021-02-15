@@ -1,26 +1,22 @@
 var mainImg = document.querySelector(".poster-img");
 var mainTitle = document.querySelector(".poster-title");
 var mainQuote = document.querySelector(".poster-quote");
-
 var randomButton = document.querySelector(".show-random");
 var createPoster = document.querySelector(".show-form");
 var viewSaved = document.querySelector(".show-saved");
 var takeMeBack = document.querySelector(".show-main");
 var backToMain = document.querySelector(".back-to-main");
-
 var mainPage = document.querySelector(".main-poster");
 var posterForm = document.querySelector(".poster-form");
 var savedPosterPage = document.querySelector(".saved-posters");
-
 var imageInput = document.querySelector("#poster-image-url");
 var titleInput = document.querySelector("#poster-title");
 var quoteInput = document.querySelector("#poster-quote");
 var showPoster = document.querySelector(".make-poster");
-
 var savePoster = document.querySelector(".save-poster");
 var posterGrid = document.querySelector(".saved-posters-grid");
 var clonedPoster = document.querySelector(".poster");
-// we've provided you with some data to work with 👇
+
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -121,19 +117,24 @@ var quotes = [
 var savedPosters = [];
 var currentPoster;
 
-// event listeners go here 👇
-window.addEventListener("load", newPoster());
-randomButton.addEventListener("click", newPoster);
-createPoster.addEventListener("click", switchToForm);
-viewSaved.addEventListener("click", switchToSaved);
-takeMeBack.addEventListener("click", switchToMain);
-backToMain.addEventListener("click", switchToMain);
+window.addEventListener("load", makeNewPoster());
+randomButton.addEventListener("click", makeNewPoster);
+createPoster.addEventListener("click", function() {
+  switchFromMain(posterForm, "hidden");
+});
+viewSaved.addEventListener("click", function() {
+  switchFromMain(savedPosterPage, "hidden");
+});
+takeMeBack.addEventListener("click", function() {
+  switchToMain("hidden");
+});
+backToMain.addEventListener("click", function() {
+  switchToMain("hidden");
+});
 showPoster.addEventListener("click", makeUserPoster);
 savePoster.addEventListener("click", saveMainPoster);
 
-
-// functions and event handlers go here 👇
-function newPoster() {
+function makeNewPoster() {
   currentPoster = new Poster(images[getRandomIndex(images)], titles[getRandomIndex(titles)], quotes[getRandomIndex(quotes)]);
   mainImg.src = currentPoster.imageURL;
   mainImg.alt = "Random image not found";
@@ -141,25 +142,19 @@ function newPoster() {
   mainQuote.innerText = currentPoster.quote;
 }
 
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function switchToForm() {
-  posterForm.classList.remove("hidden");
-  mainPage.classList.add("hidden");
+function switchFromMain(page, action) {
+  page.classList.remove(action);
+  mainPage.classList.add(action);
 }
 
-function switchToSaved() {
-  savedPosterPage.classList.remove("hidden");
-  mainPage.classList.add("hidden");
-}
-
-function switchToMain() {
-  posterForm.classList.add("hidden");
-  savedPosterPage.classList.add("hidden");
-  mainPage.classList.remove("hidden");
+function switchToMain(hide) {
+  posterForm.classList.add(hide);
+  savedPosterPage.classList.add(hide);
+  mainPage.classList.remove(hide);
 }
 
 function makeUserPoster() {
@@ -168,7 +163,7 @@ function makeUserPoster() {
   images.push(currentPoster.imageURL);
   titles.push(currentPoster.title);
   quotes.push(currentPoster.quote);
-  switchToMain();
+  switchToMain("hidden");
   mainImg.src = currentPoster.imageURL;
   mainTitle.innerText = currentPoster.title;
   mainQuote.innerText = currentPoster.quote;
