@@ -1,27 +1,22 @@
-// query selector variables go here 👇
 var mainImg = document.querySelector(".poster-img");
 var mainTitle = document.querySelector(".poster-title");
 var mainQuote = document.querySelector(".poster-quote");
-
 var randomButton = document.querySelector(".show-random");
 var createPoster = document.querySelector(".show-form");
 var viewSaved = document.querySelector(".show-saved");
 var takeMeBack = document.querySelector(".show-main");
 var backToMain = document.querySelector(".back-to-main");
-
 var mainPage = document.querySelector(".main-poster");
 var posterForm = document.querySelector(".poster-form");
 var savedPosterPage = document.querySelector(".saved-posters");
-
 var imageInput = document.querySelector("#poster-image-url");
 var titleInput = document.querySelector("#poster-title");
 var quoteInput = document.querySelector("#poster-quote");
 var showPoster = document.querySelector(".make-poster");
-
 var savePoster = document.querySelector(".save-poster");
 var posterGrid = document.querySelector(".saved-posters-grid");
 var clonedPoster = document.querySelector(".poster");
-// we've provided you with some data to work with 👇
+
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -122,7 +117,6 @@ var quotes = [
 var savedPosters = [];
 var currentPoster;
 
-// event listeners go here 👇
 window.addEventListener("load", makeNewPoster());
 randomButton.addEventListener("click", makeNewPoster);
 createPoster.addEventListener("click", function() {
@@ -140,8 +134,6 @@ backToMain.addEventListener("click", function() {
 showPoster.addEventListener("click", makeUserPoster);
 savePoster.addEventListener("click", saveMainPoster);
 
-
-// functions and event handlers go here 👇
 function makeNewPoster() {
   currentPoster = new Poster(images[getRandomIndex(images)], titles[getRandomIndex(titles)], quotes[getRandomIndex(quotes)]);
   mainImg.src = currentPoster.imageURL;
@@ -150,7 +142,6 @@ function makeNewPoster() {
   mainQuote.innerText = currentPoster.quote;
 }
 
-// (we've provided one for you to get you started)!
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -186,7 +177,6 @@ function makeClone(id) {
   posterGrid.appendChild(clone);
 }
 
-
 function saveMainPoster() {
   if (savedPosters.includes(currentPoster) === false) {
     savedPosters.push(currentPoster);
@@ -196,6 +186,7 @@ function saveMainPoster() {
     formatSavedPosters();
   }
 }
+
 function deletePoster() {
   var deleteChild = document.getElementById(this.id);
   posterGrid.removeChild(deleteChild);
