@@ -1,4 +1,3 @@
-// query selector variables go here 👇
 var mainImg = document.querySelector(".poster-img");
 var mainTitle = document.querySelector(".poster-title");
 var mainQuote = document.querySelector(".poster-quote");
@@ -131,6 +130,8 @@ takeMeBack.addEventListener("click", switchToMain);
 backToMain.addEventListener("click", switchToMain);
 showPoster.addEventListener("click", makeUserPoster);
 savePoster.addEventListener("click", saveMainPoster);
+
+
 // functions and event handlers go here 👇
 function newPoster() {
   currentPoster = new Poster(images[getRandomIndex(images)], titles[getRandomIndex(titles)], quotes[getRandomIndex(quotes)]);
@@ -173,16 +174,27 @@ function makeUserPoster() {
   mainQuote.innerText = currentPoster.quote;
 }
 
+function makeClone(id) {
+  var clone = clonedPoster.cloneNode(true);
+  clone.setAttribute("id", id);
+  clone.classList.remove("poster");
+  clone.classList.add("mini-poster");
+  posterGrid.appendChild(clone);
+}
+
 function saveMainPoster() {
   if (savedPosters.includes(currentPoster) === false) {
     savedPosters.push(currentPoster);
-    var clone = clonedPoster.cloneNode(true);
-    clone.classList.remove("poster");
-    clone.classList.add("mini-poster");
-    posterGrid.appendChild(clone);
+    makeClone(currentPoster.id);
+    var currentId = document.getElementById(currentPoster.id);
+    currentId.addEventListener("dblclick", deletePoster);
     formatSavedPosters();
-
   }
+}
+
+function deletePoster() {
+  var deleteChild = document.getElementById(this.id);
+  posterGrid.removeChild(deleteChild);
 }
 
 function formatSavedPosters() {
